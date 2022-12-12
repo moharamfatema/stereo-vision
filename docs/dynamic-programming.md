@@ -169,6 +169,13 @@ def dynamic_prog_disparity(left_img, right_img, sigma, c0):
 <br>
 <br>
 
+### Bonus
+<p float="left">
+  <img src="img\bonus_img1.png"/>
+</p>
+<br>
+<br>
+
 --------
 
 ## Second Image
@@ -228,6 +235,13 @@ def dynamic_prog_disparity(left_img, right_img, sigma, c0):
 <p float="left">
   <img src="img\2-0.5-20-l.png"  width="400" />
   <img src="img\2-0.5-20-r.png"  width="400" /> 
+</p>
+<br>
+<br>
+
+### Bonus
+<p float="left">
+  <img src="img\bonus_img2.png"/>
 </p>
 <br>
 <br>
@@ -297,4 +311,10 @@ def dynamic_prog_disparity(left_img, right_img, sigma, c0):
 <br>
 <br>
 
+### Bonus
+<p float="left">
+  <img src="img\bonus_img3.png"/>
+</p>
+<br>
+<br>
 --------
