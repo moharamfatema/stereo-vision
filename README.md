@@ -20,8 +20,8 @@ Mohamed Zyton | 6670
 
 <!-- References -->
 
-[block-matching]: github.com/moharamf/stereo-vision/blob/main/docs/block-matching.md
+[block-matching]: https://github.com/moharamfatema/stereo-vision/blob/main/docs/block-matching.md
 [badge-block-matching]: https://img.shields.io/badge/Block%20Matching-Docs-blue.svg
 
-[dp]: github.com/moharamf/stereo-vision/blob/main/docs/dynamic-programming.md
+[dp]: github.com/moharamfatema/stereo-vision/blob/main/docs/dynamic-programming.md
 [badge-dp]: https://img.shields.io/badge/Dynamic_Programming-Docs-blue.svg
