@@ -34,28 +34,27 @@ def block_matching_imp1(imgL, imgR, window_size, method, numDisparities = 32):
     win_size_over_2 = window_size//2
     imgLP = np.pad(imgL, win_size_over_2, mode='constant')
     imgRP = np.pad(imgR, win_size_over_2, mode='constant')
-    disparity = np.zeros(imgL.shape)
-
-    for r in range(win_size_over_2, imgLP.shape[0] - win_size_over_2):
+    disparity = np.zeros(imgL.shape, np.uint8)
+    
+    for r in tqdm(range(win_size_over_2, imgLP.shape[0] - win_size_over_2)):
         for p in range(win_size_over_2, imgLP.shape[1] - win_size_over_2):
             winL = imgLP[r - win_size_over_2 : r + win_size_over_2 + 1 , p - win_size_over_2 : p + win_size_over_2 + 1].astype('int32')
             min_index = win_size_over_2
             min_cost = np.Inf
-
-            for i in range(win_size_over_2, p + 1 - numDisparities if p > numDisparities else 0):
+            
+            for i in range(p - numDisparities if p - numDisparities > win_size_over_2 else win_size_over_2, p + 1):
                 winR = imgRP[r - win_size_over_2 : r + win_size_over_2 + 1 , i - win_size_over_2 : i + win_size_over_2 + 1].astype('int32')
-
                 cost = 0
                 if method == 'SAD':
                     cost = int(np.sum(np.absolute(winL - winR)))
                 elif method == 'SSD':
                     cost = int(np.sum(np.square(winL - winR)))
-
-                if cost < min_cost:
+                
+                if cost <= min_cost:
                     min_cost = cost
                     min_index = i
-
-            disparity[r - win_size_over_2, p - win_size_over_2] = np.absolute(p - min_index)
+            
+            disparity[r - win_size_over_2, p - win_size_over_2] = np.absolute(int(p) - int(min_index))
 
     return disparity
 ```
@@ -70,61 +69,61 @@ The parameters for block matching are as follows:
 
     The following results show the effect of the window size.
 
-    ![window size  = 1][disp-full]
+    ![SAD window size 1][img2-SAD-1-50]
 
     SAD, window size = 1
 
-    ![window size  = 1][disp-full-ssd]
+    ![SSD window size 1][img2-SSD-1-50]
 
     SSD, window size = 1
 
-    ![window size  = 5][win-5]
+    ![SAD window size 5][img2-SAD-5-50]
 
     SAD, window size = 5
 
-    ![window size  = 5][win-5-ssd]
+    ![SSD window size 5][img2-SSD-5-50]
 
     SSD, window size = 5
 
-    ![window size  = 9][win-9]
+    ![SAD window size 9][img2-SAD-9-50]
 
     SAD, window size = 9
 
-    ![window size  = 9][win-9-ssd]
+    ![SSD window size 9][img2-SSD-9-50]
 
     SSD, window size = 9
 
 2. search range (`numDisparities`)
 
-    For each pixel, the search range is the number of pixels to the left and right of the current pixel to search for the best match. A larger search range will give more accurate results, but will be computationally expensive. A smaller search range will give less accurate results, but will be less computationally expensive.
+    For each pixel, the search range is the number of pixels to the left of the current pixel to search for the best match. A larger search range will give more accurate results, but will be computationally expensive. A smaller search range will give less accurate results, but will be less computationally expensive.
 
     We search the width of the image in this setup.
 
     The following results show the effect of the search range.
 
-    ![range  = 10][disp-10]
+    ![range  = 10][img1-SAD-5-50]
 
-    SAD, range = 10
+    SAD, range = 50
 
-    ![range  = 10][disp-10-ssd]
+    ![range  = 10][img1-SSD-5-50]
 
-    SSD, range = 10
+    SSD, range = 50
 
-    ![range  = 100][disp-100]
+    ![range  = 100][img1-SAD-5-100]
 
     SAD, range = 100
 
-    ![range  = 100][disp-100-ssd]
+    ![range  = 100][img1-SSD-5-100]
 
     SSD, range = 100
 
-    ![ Full Range][disp-full]
+    ![range  = 150][img1-SAD-5-150]
 
-    SAD, full range
+    SAD, range = 150
 
-    ![ Full Range][disp-full-ssd]
+    ![range  = 150][img1-SSD-5-150]
 
-    SSD, full range
+    SSD, range = 150
 
 ### Window Size
 
@@ -132,7 +131,7 @@ The window size is the size of the window used to compare the blocks. The window
 
 ### Search Range
 
-The search range is the number of disparities to search for. The search range is the number of pixels to the left and right of the current pixel to search for the best match.
+The search range is the number of disparities to search for. The search range is the number of pixels to the left of the current pixel to search for the best match.
 
 ### Method
 
@@ -152,57 +151,78 @@ We show the dispaity maps for 3 images with different window sizes and methods.
 ![first image left][img1-l]
 ![first image right][img1-r]
 
-![sad window size 1][disp-full]
+![img1 SAD window size 1 disparity num 50][img1-SAD-1-50]
+![img1 SSD window size 1 disparity num 50][img1-SSD-1-50]
+![img1 SAD window size 1 disparity num 100][img1-SAD-1-100]
+![img1 SSD window size 1 disparity num 100][img1-SSD-1-100]
+![img1 SAD window size 1 disparity num 150][img1-SAD-1-150]
+![img1 SSD window size 1 disparity num 150][img1-SSD-1-150]
 
-SAD, window size = 1
+![img1 SAD window size 5 disparity num 50][img1-SAD-5-50]
+![img1 SSD window size 5 disparity num 50][img1-SSD-5-50]
+![img1 SAD window size 5 disparity num 100][img1-SAD-5-100]
+![img1 SSD window size 5 disparity num 100][img1-SSD-5-100]
+![img1 SAD window size 5 disparity num 150][img1-SAD-5-150]
+![img1 SSD window size 5 disparity num 150][img1-SSD-5-150]
 
-![ssd window size 1][disp-full-ssd]
-
-SSD, window size = 1
-
-![sad window size 5][win-5]
-
-SAD, window size = 5
-
-![ssd window size 5][win-5-ssd]
-
-SSD, window size = 5
-
-![sad window size 9][win-9]
-
-SAD, window size = 9
-
-![ssd window size 9][win-9-ssd]
-
-SSD, window size = 9
+![img1 SAD window size 9 disparity num 50][img1-SAD-9-50]
+![img1 SSD window size 9 disparity num 50][img1-SSD-9-50]
+![img1 SAD window size 9 disparity num 100][img1-SAD-9-100]
+![img1 SSD window size 9 disparity num 100][img1-SSD-9-100]
+![img1 SAD window size 9 disparity num 150][img1-SAD-9-150]
+![img1 SSD window size 9 disparity num 150][img1-SSD-9-150]
 
 ### Second Image
 
 ![second image left][img2-l]
 ![second image right][img2-r]
 
-![sad 2 window size 1][sad-2-1]
-![ssd 2 window size 1][ssd-2-1]
+![img2 SAD window size 1 disparity num 50][img2-SAD-1-50]
+![img2 SSD window size 1 disparity num 50][img2-SSD-1-50]
+![img2 SAD window size 1 disparity num 100][img2-SAD-1-100]
+![img2 SSD window size 1 disparity num 100][img2-SSD-1-100]
+![img2 SAD window size 1 disparity num 150][img2-SAD-1-150]
+![img2 SSD window size 1 disparity num 150][img2-SSD-1-150]
 
-![sad 2 window size 5][sad-2-5]
-![ssd 2 window size 5][ssd-2-5]
+![img2 SAD window size 5 disparity num 50][img2-SAD-5-50]
+![img2 SSD window size 5 disparity num 50][img2-SSD-5-50]
+![img2 SAD window size 5 disparity num 100][img2-SAD-5-100]
+![img2 SSD window size 5 disparity num 100][img2-SSD-5-100]
+![img2 SAD window size 5 disparity num 150][img2-SAD-5-150]
+![img2 SSD window size 5 disparity num 150][img2-SSD-5-150]
 
-![sad 2 window size 9][sad-2-9]
-![ssd 2 window size 9][ssd-2-9]
+![img2 SAD window size 9 disparity num 50][img2-SAD-9-50]
+![img2 SSD window size 9 disparity num 50][img2-SSD-9-50]
+![img2 SAD window size 9 disparity num 100][img2-SAD-9-100]
+![img2 SSD window size 9 disparity num 100][img2-SSD-9-100]
+![img2 SAD window size 9 disparity num 150][img2-SAD-9-150]
+![img2 SSD window size 9 disparity num 150][img2-SSD-9-150]
 
 ### Third Image
 
 ![third image left][img3-l]
 ![third image right][img3-r]
 
-![sad 3 window size 1][sad-3-1]
-![ssd 3 window size 1][ssd-3-1]
+![img3 SAD window size 1 disparity num 50][img3-SAD-1-50]
+![img3 SSD window size 1 disparity num 50][img3-SSD-1-50]
+![img3 SAD window size 1 disparity num 100][img3-SAD-1-100]
+![img3 SSD window size 1 disparity num 100][img3-SSD-1-100]
+![img3 SAD window size 1 disparity num 150][img3-SAD-1-150]
+![img3 SSD window size 1 disparity num 150][img3-SSD-1-150]
 
-![sad 3 window size 5][sad-3-5]
-![ssd 3 window size 5][ssd-3-5]
+![img3 SAD window size 5 disparity num 50][img3-SAD-5-50]
+![img3 SSD window size 5 disparity num 50][img3-SSD-5-50]
+![img3 SAD window size 5 disparity num 100][img3-SAD-5-100]
+![img3 SSD window size 5 disparity num 100][img3-SSD-5-100]
+![img3 SAD window size 5 disparity num 150][img3-SAD-5-150]
+![img3 SSD window size 5 disparity num 150][img3-SSD-5-150]
 
-![sad 3 window size 9][sad-3-9]
-![ssd 3 window size 9][ssd-3-9]
+![img3 SAD window size 9 disparity num 50][img3-SAD-9-50]
+![img3 SSD window size 9 disparity num 50][img3-SSD-9-50]
+![img3 SAD window size 9 disparity num 100][img3-SAD-9-100]
+![img3 SSD window size 9 disparity num 100][img3-SSD-9-100]
+![img3 SAD window size 9 disparity num 150][img3-SAD-9-150]
+![img3 SSD window size 9 disparity num 150][img3-SSD-9-150]
 
 <!-- Referrences -->
 
@@ -220,27 +240,64 @@ SSD, window size = 9
 
 [img1-l]: ../imgs/l1.png
 [img1-r]: ../imgs/r1.png
-
 [img2-l]: ../imgs/l2.png
 [img2-r]: ../imgs/r2.png
-
 [img3-l]: ../imgs/l3.png
 [img3-r]: ../imgs/r3.png
 
-[sad-2-1]: ./img/sad-2-1.png
-[ssd-2-1]: ./img/ssd-2-1.png
+[img1-SAD-1-50]:./img/img1-SAD-1-50.png
+[img1-SSD-1-50]:./img/img1-SSD-1-50.png
+[img1-SAD-5-50]:./img/img1-SAD-5-50.png
+[img1-SSD-5-50]:./img/img1-SSD-5-50.png
+[img1-SAD-9-50]:./img/img1-SAD-9-50.png
+[img1-SSD-9-50]:./img/img1-SSD-9-50.png
+[img1-SAD-1-100]:./img/img1-SAD-1-100.png
+[img1-SSD-1-100]:./img/img1-SSD-1-100.png
+[img1-SAD-5-100]:./img/img1-SAD-5-100.png
+[img1-SSD-5-100]:./img/img1-SSD-5-100.png
+[img1-SAD-9-100]:./img/img1-SAD-9-100.png
+[img1-SSD-9-100]:./img/img1-SSD-9-100.png
+[img1-SAD-1-150]:./img/img1-SAD-1-150.png
+[img1-SSD-1-150]:./img/img1-SSD-1-150.png
+[img1-SAD-5-150]:./img/img1-SAD-5-150.png
+[img1-SSD-5-150]:./img/img1-SSD-5-150.png
+[img1-SAD-9-150]:./img/img1-SAD-9-150.png
+[img1-SSD-9-150]:./img/img1-SSD-9-150.png
 
-[sad-2-5]: ./img/sad-2-5.png
-[ssd-2-5]: ./img/ssd-2-5.png
+[img2-SAD-1-50]:./img/img2-SAD-1-50.png
+[img2-SSD-1-50]:./img/img2-SSD-1-50.png
+[img2-SAD-5-50]:./img/img2-SAD-5-50.png
+[img2-SSD-5-50]:./img/img2-SSD-5-50.png
+[img2-SAD-9-50]:./img/img2-SAD-9-50.png
+[img2-SSD-9-50]:./img/img2-SSD-9-50.png
+[img2-SAD-1-100]:./img/img2-SAD-1-100.png
+[img2-SSD-1-100]:./img/img2-SSD-1-100.png
+[img2-SAD-5-100]:./img/img2-SAD-5-100.png
+[img2-SSD-5-100]:./img/img2-SSD-5-100.png
+[img2-SAD-9-100]:./img/img2-SAD-9-100.png
+[img2-SSD-9-100]:./img/img2-SSD-9-100.png
+[img2-SAD-1-150]:./img/img2-SAD-1-150.png
+[img2-SSD-1-150]:./img/img2-SSD-1-150.png
+[img2-SAD-5-150]:./img/img2-SAD-5-150.png
+[img2-SSD-5-150]:./img/img2-SSD-5-150.png
+[img2-SAD-9-150]:./img/img2-SAD-9-150.png
+[img2-SSD-9-150]:./img/img2-SSD-9-150.png
 
-[sad-2-9]: ./img/sad-2-9.png
-[ssd-2-9]: ./img/ssd-2-9.png
-
-[sad-3-1]: ./img/sad-3-1.png
-[ssd-3-1]: ./img/ssd-3-1.png
-
-[sad-3-5]: ./img/sad-3-5.png
-[ssd-3-5]: ./img/ssd-3-5.png
-
-[sad-3-9]: ./img/sad-3-9.png
-[ssd-3-9]: ./img/ssd-3-9.png
+[img3-SAD-1-50]:./img/img3-SAD-1-50.png
+[img3-SSD-1-50]:./img/img3-SSD-1-50.png
+[img3-SAD-5-50]:./img/img3-SAD-5-50.png
+[img3-SSD-5-50]:./img/img3-SSD-5-50.png
+[img3-SAD-9-50]:./img/img3-SAD-9-50.png
+[img3-SSD-9-50]:./img/img3-SSD-9-50.png
+[img3-SAD-1-100]:./img/img3-SAD-1-100.png
+[img3-SSD-1-100]:./img/img3-SSD-1-100.png
+[img3-SAD-5-100]:./img/img3-SAD-5-100.png
+[img3-SSD-5-100]:./img/img3-SSD-5-100.png
+[img3-SAD-9-100]:./img/img3-SAD-9-100.png
+[img3-SSD-9-100]:./img/img3-SSD-9-100.png
+[img3-SAD-1-150]:./img/img3-SAD-1-150.png
+[img3-SSD-1-150]:./img/img3-SSD-1-150.png
+[img3-SAD-5-150]:./img/img3-SAD-5-150.png
+[img3-SSD-5-150]:./img/img3-SSD-5-150.png
+[img3-SAD-9-150]:./img/img3-SAD-9-150.png
+[img3-SSD-9-150]:./img/img3-SSD-9-150.png
