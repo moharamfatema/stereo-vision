@@ -106,20 +106,195 @@ def dynamic_prog_disparity(left_img, right_img, sigma, c0):
 ```
 
 
+# Sample Runs
+
+## First Image
+
+### sigma = 2, c0 = 1
+<p float="left">
+  <img src="img\1-2-1-l.jpg"  width="400" />
+  <img src="img\1-2-1-r.jpg"  width="400" /> 
+</p>
+
+
+### sigma = 4, c0 = 1
+<p float="left">
+  <img src="img\1-4-1-l.jpg"  width="400" />
+  <img src="img\1-4-1-r.jpg"  width="400" /> 
+</p>
+
+### sigma = 0.5, c0 = 1
+<p float="left">
+  <img src="img\1-0.5-1-l.jpg"  width="400" />
+  <img src="img\1-0.5-1-r.jpg"  width="400" /> 
+</p>
+
+
+### sigma = 2, c0 = 10
+<p float="left">
+  <img src="img\1-2-10-l.jpg"  width="400" />
+  <img src="img\1-2-10-r.jpg"  width="400" /> 
+</p>
+
+### sigma = 4, c0 = 10
+<p float="left">
+  <img src="img\1-4-10-l.jpg"  width="400" />
+  <img src="img\1-4-10-r.jpg"  width="400" /> 
+</p>
+
+
+### sigma = 0.5, c0 = 10
+<p float="left">
+  <img src="img\1-0.5-10-l.jpg"  width="400" />
+  <img src="img\1-4-10-r.jpg"  width="400" /> 
+</p>
+
+### sigma = 2, c0 = 20
+<p float="left">
+  <img src="img\1-2-20-l.jpg"  width="400" />
+  <img src="img\1-2-20-r.jpg"  width="400" /> 
+</p>
+
+### sigma = 4, c0 = 20
+<p float="left">
+  <img src="img\1-4-20-l.jpg"  width="400" />
+  <img src="img\1-4-20-r.jpg"  width="400" /> 
+</p>
+
+### sigma = 0.5, c0 = 20
+<p float="left">
+  <img src="img\1-0.5-20-l.jpg"  width="400" />
+  <img src="img\1-0.5-20-r.jpg"  width="400" /> 
+</p>
+<br>
+<br>
+
+--------
+
+## Second Image
+
+### sigma = 2, c0 = 1
+<p float="left">
+  <img src="img\2-2-1-l.png"  width="400" />
+  <img src="img\2-2-1-r.png"  width="400" /> 
+</p>
+
+
+### sigma = 4, c0 = 1
+<p float="left">
+  <img src="img\2-4-1-l.png"  width="400" />
+  <img src="img\2-4-1-r.png"  width="400" /> 
+</p>
+
+### sigma = 0.5, c0 = 1
+<p float="left">
+  <img src="img\2-0.5-1-l.png"  width="400" />
+  <img src="img\2-0.5-1-r.png"  width="400" /> 
+</p>
+
+
+### sigma = 2, c0 = 10
+<p float="left">
+  <img src="img\2-2-10-l.png"  width="400" />
+  <img src="img\2-2-10-r.png"  width="400" /> 
+</p>
+
+### sigma = 4, c0 = 10
+<p float="left">
+  <img src="img\2-4-10-l.png"  width="400" />
+  <img src="img\2-4-10-r.png"  width="400" /> 
+</p>
+
+
+### sigma = 0.5, c0 = 10
+<p float="left">
+  <img src="img\2-0.5-10-l.png"  width="400" />
+  <img src="img\2-4-10-r.png"  width="400" /> 
+</p>
+
+### sigma = 2, c0 = 20
+<p float="left">
+  <img src="img\2-2-20-l.png"  width="400" />
+  <img src="img\2-2-20-r.png"  width="400" /> 
+</p>
+
+### sigma = 4, c0 = 20
+<p float="left">
+  <img src="img\2-4-20-l.png"  width="400" />
+  <img src="img\2-4-20-r.png"  width="400" /> 
+</p>
+
+### sigma = 0.5, c0 = 20
+<p float="left">
+  <img src="img\2-0.5-20-l.png"  width="400" />
+  <img src="img\2-0.5-20-r.png"  width="400" /> 
+</p>
+<br>
+<br>
+
+--------
 
 
 
+## Third Image
+
+### sigma = 2, c0 = 1
+<p float="left">
+  <img src="img\3-2-1-l.png"  width="400" />
+  <img src="img\3-2-1-r.png"  width="400" /> 
+</p>
 
 
+### sigma = 4, c0 = 1
+<p float="left">
+  <img src="img\3-4-1-l.png"  width="400" />
+  <img src="img\3-4-1-r.png"  width="400" /> 
+</p>
+
+### sigma = 0.5, c0 = 1
+<p float="left">
+  <img src="img\3-0.5-1-l.png"  width="400" />
+  <img src="img\3-0.5-1-r.png"  width="400" /> 
+</p>
 
 
+### sigma = 2, c0 = 10
+<p float="left">
+  <img src="img\3-2-10-l.png"  width="400" />
+  <img src="img\3-2-10-r.png"  width="400" /> 
+</p>
+
+### sigma = 4, c0 = 10
+<p float="left">
+  <img src="img\3-4-10-l.png"  width="400" />
+  <img src="img\3-4-10-r.png"  width="400" /> 
+</p>
 
 
+### sigma = 0.5, c0 = 10
+<p float="left">
+  <img src="img\3-0.5-10-l.png"  width="400" />
+  <img src="img\3-4-10-r.png"  width="400" /> 
+</p>
 
+### sigma = 2, c0 = 20
+<p float="left">
+  <img src="img\3-2-20-l.png"  width="400" />
+  <img src="img\3-2-20-r.png"  width="400" /> 
+</p>
 
+### sigma = 4, c0 = 20
+<p float="left">
+  <img src="img\3-4-20-l.png"  width="400" />
+  <img src="img\3-4-20-r.png"  width="400" /> 
+</p>
 
+### sigma = 0.5, c0 = 20
+<p float="left">
+  <img src="img\3-0.5-20-l.png"  width="400" />
+  <img src="img\3-0.5-20-r.png"  width="400" /> 
+</p>
+<br>
+<br>
 
-
-
-
-
+--------
